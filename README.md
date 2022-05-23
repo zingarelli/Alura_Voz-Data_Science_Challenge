@@ -22,3 +22,8 @@ O Alura Challenges é uma proposta de desafio para colocar em prática aquilo qu
 A primeira semana é dedicada a acessar a base de dados e ter um primeiro contato com as informações disponíveis. É necessário obter os dados da base e formatá-la, para posteriormente verificar sua estrutura, os tipos de dados e valores armazenados, e, por fim, fazer a limpeza e correções apropriadas de informações faltantes ou inconsistentes.
 
 A empresa também fez duas solicitações adicionais que gostaria de ver sendo entregues na primeira semana: tradução das colunas, que estão em inglês, e criação de uma coluna adicional contendo os gastos diários de cada cliente da base.
+
+## Semana 2
+O foco nesta semana é analisar graficamente os dados, gerando diversos tipos de visualizações e cruzamento entre as colunas do banco. O foco maior é na variável Churn (que agora se chama "cancelou_plano"), por ser o target deste projeto. Graficamente, o objetivo é tentar encontrar relações e tendências entre as variáveis, bem como explorar a distribuição dos dados para tentar, visualmente, encontrar perfis de clientes que optaram sair do plano.
+
+Foi também solicitado analisar a correlação entre as variáveis. Para isso, foi utilizada a fórmula para cálculo do Coeficiente de Correlação de Pearson e o resultado foi mostrado em um Heatmap, facilitando a visualização das correlações e sua força. 
