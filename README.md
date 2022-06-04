@@ -47,7 +47,7 @@ Foi utilizado o arquivo CSV criado na primeira semana, contendo a base tratada e
 
 ### Resultados obtidos
 
-Fiz duas suposições e depois tentei verificar a validade delas por meio de gráficos relacionando `cancelou_plano` com outras colunas:
+Fiz duas suposições, que depois tentei verificar a validade por meio de gráficos relacionando `cancelou_plano` com outras colunas:
 
 - Suposição 1: um dos motivos para uma pessoa cancelar o plano é o valor pago.
 
@@ -100,12 +100,99 @@ Para verificar a correlação entre as colunas da base de dados, foi utilizada a
 ## Semana 3 - Modelagem
 Para esta semana final (a quarta semana é para organizar o projeto e refinar o storytelling), o foco é preparar a base para criação de modelos de Machine Learning que consigam fazer a classificação dos clientes entre aqueles que talvez venham a cancelar seus planos ou não, que é o target do projeto. Para isso, deve-se verificar se o target está balanceado e corrigir este problema caso não esteja. Antes de utilizar os dados da base para o treinamento dos modelos, também é necessário efetuar o encoding dos valores categóricos. 
 
-Com essas etapas superadas, é possível seguir com a criação e treinamento de dois modelos de Machine Learning e testá-los com os dados da base, comparando os resultados das métricas obtidos em cada um para escolher o melhor deles, que irá, por fim, passar por uma etapa de otimização. As features utilizadas para treinar os modelos são aquelas identificadas na Semana 2. 
+Com essas etapas superadas, é possível seguir com a criação e treinamento de dois modelos de Machine Learning e testá-los com os dados da base, comparando os resultados das métricas obtidos em cada um para escolher o melhor deles, que irá, por fim, passar por uma etapa de otimização. 
+
+As features utilizadas para treinar os modelos são aquelas identificadas na Semana 2. 
 
 ### Resultados obtidos
 
-A análise de balanceamento do target revelou que este de fato se encontrava desbalanceado: cerca de 75% da base é formada por clientes que não cancelaram o plano e o restante, por clientes que cancelaram. Uma variável balanceada precisa ter uma quantidade equivalente de registros para cada um dos valores possíveis que ela pode assumir. No caso desta base, o target possui dois valores possíveis: `Sim` (`1`) e `Nao` (`0`). Para sanar este problema, foram exploradas duas estratégias: oversampling, isto é, criação de novos dados sintéticos (utilizando a técnica [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)) e undersampling, que seria o contrário, remoção de registros até se obter a mesma quantidade de registros para os dois valores possíveis para o target (neste caso, utilizando a técnica [Near Miss](https://imbalanced-learn.org/stable/references/generated/imblearn.under_sampling.NearMiss.html)).
+**Balanceamento**
 
-Como a variáveis categóricas possuíam entre 2 a 4 valores possíveis (com exceção do ID do cliente, que não foi utilizado na modelagem), primeiramente apliquei a técnica de Label Encoding em cada coluna, que é mais simples. Nessa técnica, cada valor diferente é convertido para um valor numérico. Por exemplo, `Nao` pode ser convertido para `0` e `Sim` para `1` e assim por diante para cada novo valor. Outra técnica que foi aplicada, porém em um momento posterior do projeto, foi o [One-Hot Encoding](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html). No One-Hot, cada coluna é substituída por várias outras colunas, uma para cada um dos valores possíveis, aplicando-se 1 na coluna em que o valor está presente e 0 nas restantes. Isso é feito para que não se tenha nenhum tipo de relação de hierarquia entre os valores (por exemplo, o modelo "entender" que um valor maior tem mais relevância que um valor menor).
+A análise de balanceamento do target revelou que este de fato se encontrava desbalanceado: cerca de 75% da base é formada por clientes que não cancelaram o plano e o restante, por clientes que cancelaram. Uma variável balanceada precisa ter uma quantidade equivalente de registros para cada um dos valores possíveis que ela pode assumir. 
 
-Os dois modelos criados foram testados para se obter algumas métricas: Acurácia, Precisão, Recall e F1. Foi também gerada a Matriz de Confusão (que mostra os acertos, os falsos positivos e falsos negativos), possibilitando uma análise visual dos resultados. Do  modelo que se saiu melhor nos teste, foi feita uma otimização dos parâmetros, em busca de melhoria nas métricas. 
+No caso da base deste projeto, o target possui dois valores possíveis: `Sim` (a pessoa cancelou o plano) e `Nao` (a pessoa não cancelou o plano). Para sanar este problema, foram exploradas duas estratégias: oversampling, isto é, criação de novos dados sintéticos (utilizando a técnica [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)) e undersampling, que seria o contrário, remoção de registros até se obter a mesma quantidade de registros para os dois valores possíveis para o target (neste caso, utilizando a técnica [Near Miss](https://imbalanced-learn.org/stable/references/generated/imblearn.under_sampling.NearMiss.html)).
+
+**Encoding**
+
+Como as variáveis categóricas possuíam entre 2 a 4 valores possíveis (com exceção do ID do cliente, o qual não foi utilizado na modelagem), apliquei primeiramente a técnica de Label Encoding em cada coluna, que é mais simples. Nessa técnica, cada valor categórigo diferente é convertido para um valor numérico. Por exemplo, `Nao` pode ser convertido para `0` e `Sim` para `1`, e assim por diante. 
+
+Outra técnica que foi aplicada, porém em um momento posterior do projeto, foi o [One-Hot Encoding](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html). No One-Hot, cada coluna é substituída por várias outras colunas, cada uma representando um dos valores categóricos possíveis. Indo linha a linha, nestas colunas, é colocado o valor 1 naquela em que o valor categórico está presente e 0 nas restantes. Isso é feito para que não se tenha nenhum tipo de relação de hierarquia entre os valores (por exemplo, o modelo "entender" que o número `2` tem mais relevância que o número `1`).
+
+Como o One-Hot Encoding foi feito no final do projeto, ele foi testado somente na etapa em que os modelos estavam prontos. Os resultados obtidos com ele foram próximos dos obtidos com o Label Encoding, sendo melhor em alguns casos (as diferenças chegaram no máximo a 0,05 na comparação das métricas utilizadas).
+
+**Modelagem e Validação**
+
+Foram criados dois modelos de Machine Learning para classificação: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html) e [SVC (Support Vector Classification)](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html). Ambos foram importados da biblioteca do [Scikit-learn](https://scikit-learn.org/stable/index.html). Cada um segue uma estratégia diferente para classificação, então foi possível compará-los para escolher aquele que produziu os melhores resultados. 
+
+Para treinamento do modelo, foram utilizadas as seguintes colunas (features):
+
+- Gasto mensal;
+- Senioridade (idade acima ou abaixo de 65 anos);
+- Gênero;
+- Meses de contrato;
+- Pessoas com ou sem dependentes;
+- Tipo de plano contratado.
+
+Para validar os modelos, foram utilizadas quatro métricas, também importadas da biblioteca do Scikit-learn:
+
+- Acurácia: quanto o modelo acertou em geral;
+- Precisão: dentre os resultados positivos reais, quanto o modelo acertou;
+- Recall (Sensibilidade): dentre todos os resultados positivos, quanto o modelo acertou;
+- F1: média harmônica da Precisão e Recall.
+
+Para analisar visualmente os resultados, foi utilizada a Matriz de Confusão (do Scikit-learn, mais uma vez), que mostra, em quatro quadrantes, a quantidade de Verdadeiros Negativos, Falsos Positivos, Falsos Negativos e Verdadeiros Positivos.
+
+**Modelo escolhido**
+
+Os modelos, as métricas e a separação dos dados para treino foram modularizados em funções, o que possibilitou aplicar o modelo em diferentes cenários e com diferentes features. 
+
+Os **melhores resultados** foram com a base balanceada com **Oversampling**, codificada com o **Label Encoding**.
+
+Dentre os dois modelos, o melhor foi o **Random Forest**. A diferença para o SVC, no entanto, não foi tão alta. 
+
+Todos os resultados e testes podem ser conferidos no [Notebook](https://github.com/zingarelli/alura-challenges-data-science-2022/blob/main/Semana-3/Alura_Challenges_%7C_Data_Science_2022_Semana_03.ipynb). Na tabela abaixo estão os resultados para o Random Forest, base com Oversampling e Label Encoding:
+
+| Métrica | Resultado |
+|---|---|
+|Acurácia| 0.78121|
+|Precisão| 0.74836|
+|Recall| 0.86254|
+|F1| 0.80140|
+
+A imagem abaixo exibe a Matriz de Confusão:
+
+![Matriz de Confusão Random Forest, não otimizado, base com oversampling e label encoding](https://user-images.githubusercontent.com/19349339/171752289-38260b29-1e11-47ad-b21c-9658c53b8ec0.png)
+
+**Otimização do modelo**
+
+O primeiro teste foi rodar o modelo utilizando todas as colunas no treinamento, para comparar os resultados com os obtidos com as colunas que foram selecionadas. Os resultados foram próximos, sendo que o modelo com todas as colunas foi melhor em termos de acurácia e precisão, e levemente melhor no F1 (diferença na terceira casa decimal). As diferenças na comparação entre os resultados não chegou a 0,03. Considero, então, que as **features selecionadas estão adequadas ao modelo**. 
+
+Testei diferentes variações do Random Forest alterando dois parâmetros: `n_estimators`, que altera a quantidade de árvores de decisão, e `max_depth`, que é o quão profunda é a árvore (quanto mais profunda, mais específica ela vai ficando na classificação). Mais uma vez, todos os testes e resultados detalhados podem ser conferidos no [Notebook](https://github.com/zingarelli/alura-challenges-data-science-2022/blob/main/Semana-3/Alura_Challenges_%7C_Data_Science_2022_Semana_03.ipynb).
+
+Após diferentes testes, chegou-se à seguinte especificação:
+
+- `n_estimators=100`, que já é o valor padrão da função no Scikit-learn;
+
+- `max_depth=12`.
+
+Os resultados obtidos com essa seleção e a Matriz de Confusão são mostrados abaixo:
+
+| Métrica | Resultado |
+|---|---|
+|Acurácia| 0.79590|
+|Precisão| 0.77601|
+|Recall| 0.84517|
+|F1| 0.80911|
+
+
+![Matriz de Confusão com modelo otimizado do Random Forest, base com oversampling e label encoding](https://user-images.githubusercontent.com/19349339/171754255-476a9573-19da-4737-aeeb-f345ecb0bcbd.png)
+
+## Conclusões finais
+
+O modelo escolhido foi otimizado de modo a balancear os acertos de Verdadeiros Positivos e Negativos, mas procurando não impactar demais nos acertos de Verdadeiros Positivos (pessoas que cancelam o plano), pois acredito que seja o interesse principal da empresa em identificar os clientes em potencial de cancelar seu plano, já que isso impacta nas receitas.
+
+Em conjunto com a análise gráfica realizada, está sendo entregue à empresa um material que possibilita a ela identificar os tipos de clientes que podem cancelar seus planos, auxiliando o time de marketing e de vendas a atuar em grupos específicos de clientes para melhorar a retenção.
+
+## Agradecimentos
+
+Agradeço à Alura por esta oportunidade de praticar Data Science em uma simulação de projeto real. Ao Scuba Team da Alura, que criou o desafio e acompanhou a evolução dos alunos por meio de lives. E a todos os alunos no Discord, pelas dicas, reflexões e compartilhamento de código. Foi um mês intenso, mas de bastante aprendizado.
