@@ -197,6 +197,4 @@ Em conjunto com a análise gráfica realizada, está sendo entregue à empresa u
 
 Agradeço à Alura por esta oportunidade de praticar Data Science em uma simulação de projeto real. Ao Scuba Team da Alura, que criou o desafio e acompanhou a evolução dos alunos por meio de lives. E a todos os alunos no Discord, pelas dicas, reflexões e compartilhamento de código. Foi um mês intenso, mas de bastante aprendizado.
 
-<img alt="Badge recebida por completar o Alura Challenge Data Science" src="https://user-images.githubusercontent.com/19349339/173257749-180dbec2-9dad-44e4-9a31-d750f83b7d04.png" width="250">
-
-
+<img alt="Badge recebida por completar o Alura Challenge Data Science" src="https://user-images.githubusercontent.com/19349339/173257749-180dbec2-9dad-44e4-9a31-d750f83b7d04.png" width="250"> <img alt="Badge recebida por completar o Alura Challenge Data Science e ter dado feedback sobre o evento" src="https://user-images.githubusercontent.com/19349339/176528898-3cb9d5d6-77fa-42b1-9911-dbdbba6588bb.png" width="250">
