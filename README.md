@@ -1,8 +1,20 @@
 # Alura Challenges - Data Science - 2022
 
-Este projeto é resultado da minha participação no [Challenge](https://www.alura.com.br/challenges/data-science) promovido pela [Alura](https://www.alura.com.br), uma plataforma online brasileira de cursos de tecnologia. 
+Este projeto é resultado da minha participação no [Challenge](https://www.alura.com.br/challenges/data-science) promovido pela [Alura](https://www.alura.com.br), uma plataforma online brasileira de cursos de tecnologia. O desafio foi fazer uma análise de Churn Rate para uma empresa de telecom.
 
-O Alura Challenges é uma proposta de desafio para colocar em prática aquilo que se aprende nos cursos. Nele, é possível simular uma experiência de trabalho e entrega de um projeto para uma empresa fictícia. São 4 semanas de desafio, sendo que em cada uma é disponibilizado um quadro no Trello com as solicitações da empresa. A cada semana, o desafio aumenta. 
+| :placard: Vitrine.Dev |     |
+| -------------  | --- |
+| :sparkles: Nome        | **Análise de Churn Rate da Alura Voz**
+| :label: Tecnologias | Python
+| :rocket: URL         | https://github.com/zingarelli/Alura_Voz-Data_Science_Challenge
+| :fire: Desafio     | https://www.alura.com.br/challenges/data-science
+
+<!-- Inserir imagem com a #vitrinedev ao final do link -->
+![logo da Alura Voz](https://user-images.githubusercontent.com/19349339/190259157-82cd44df-e1df-4881-9b76-63a1f8af95b1.png#vitrinedev)
+
+## Detalhes do projeto
+
+O Alura Challenges é uma proposta de desafio para colocar em prática aquilo que se aprende nos cursos de tecnologia da Alura. Nele, é possível simular uma experiência de trabalho e entrega de um projeto para uma empresa fictícia. São 4 semanas de desafio, sendo que em cada uma é disponibilizado um quadro no Trello com as solicitações da empresa. A cada semana, o desafio aumenta. 
 
 ---
 
